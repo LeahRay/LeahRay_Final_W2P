@@ -1,0 +1,282 @@
+.popup {
+    display: none;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 1%;
+    padding: 5px;
+    padding-top:30px ;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+/* Additional styling as needed */
+body {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevents scrolling if pop-ups go out of view */
+}
+
+.window-controls {
+    background: transparent;
+    padding: 3px;
+    cursor: move;
+    align-items: center;
+    justify-content: start;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    display: flex;
+    z-index: 10; /* Ensure the controls are above other content */
+}
+
+.control {
+    display: inline-block;
+    width: 12px; /* Diameter of the round button */
+    height: 12px; /* Diameter of the round button */
+    border-radius: 50%;
+    margin-right: 8px; /* Space between buttons */
+    position: relative; /* To position the pseudo-elements */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Ensure nothing spills out of the button */
+}
+
+.control.close { background: #828282; }
+.control.enlarge { background: #828282; }
+
+.control:hover::before {
+    content: '';
+    position: absolute;
+    width: 100%; /* Full width of the button */
+    height: 100%; /* Full height of the button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px; /* Adjust if icons are too large */
+}
+
+.control:hover {
+    color: rgb(255, 255, 255); 
+}
+
+.control.close:hover::before {
+    content: '×'; /* Add 'x' symbol on hover */
+}
+
+.control.enlarge:hover::before {
+    content: '+'; /* Add 'check' symbol on hover */
+}
+
+#drop-zone {
+    width: 90px;
+    height: 120px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgb(189, 189, 189); /* Make border transparent initially */
+    background-color: white; /* Start with a transparent background */
+    border-radius: 2px; /* Rounded corners */
+    text-align: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    transition: background-color 0.3s, border-color 0.3s, opacity 0.3s; /* Smooth transition for visual feedback */
+    z-index: 999; /* Ensure it's above other elements */
+    display: flex;
+    align-items: center; /* Vertical centering */
+    justify-content: center; /* Horizontal centering */
+    flex-direction: column;
+    z-index: -1000;
+}
+
+#drop-zone:hover {
+    background-color: lightgray; /* Gray background on hover */
+    opacity: 1; /* Make drop zone visible on hover */
+}
+
+#drop-zone:hover::after {
+    content: "Drop here"; /* Show text on hover */
+    color: white; /* Text color */
+    opacity: 0.5;
+}
+
+.popup img {
+    width: 100%; /* This will make the image fill the width of the pop-up */
+    height: 100%; /* This will make the image fill the height of the pop-up */
+    border-radius: 1px; 
+    object-fit: cover; /* This will cover the area without stretching the image */
+}
+#print-icon {
+    cursor: pointer;
+    width: 27px;
+    height: 30px;
+    position: fixed; /* Fixed positioning relative to the viewport */
+  left: 30px; /* Distance from the left edge of the viewport */
+  bottom: 20px; /* Distance from the bottom edge of the viewport */
+  }
+
+#download-poster-icon {
+    position: fixed; /* Fixed positioning relative to the viewport */
+    left: 70px; /* Distance from the right edge of the viewport */
+    bottom: 20px; /* Distance from the bottom edge of the viewport */
+    cursor: pointer;
+    width: 27px;
+    height: 30px;
+  }
+  
+  .popup::after {
+    content: attr(data-text); /* Fetch the text from data-text attribute */
+    white-space: pre-line; /* Respect the line breaks and white spaces */
+    display: none; /* Hide by default */
+    position: absolute;
+    bottom: -45px; /* Position below the popup */
+    left: 0;
+    right: 0; /* Full width */
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    background-color: transparent#f8f8f8; /* Background color for the text */
+    color: lightgray; /* Text color */
+    text-align: left;
+    font-size: 12px;
+    padding: 5px;
+    z-index: 200; /* Higher than the popup to be visible */
+  }
+  
+.popup:hover::after {
+    display: block; /* Show on hover */
+  }
+
+  #popup-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Adjust as needed */
+    align-items: flex-start; /* Adjust as needed */
+}
+#logo {
+    position: fixed; /* Fixed positioning relative to the viewport */
+    right: 20px; /* Distance from the right edge of the viewport */
+    bottom: 40px; /* Distance from the bottom edge of the viewport */
+    z-index: -1; /* High z-index to ensure it's above other elements */
+    width: 197px;
+    height: 76px;
+    cursor: pointer;
+  }
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color:rgba(255, 255, 255, 0.5);; 
+    transition: backdrop-filter 0.5s ease;
+  }
+#modal-backdrop {
+    display: none; /* Hidden by default */
+    position: fixed; /* Position relative to the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(10px); /* Adjust the blur value as needed */
+    z-index: 1000; /* Below the modal content but above everything else */
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out; /* Transition for the backdrop */
+  visibility: hidden; /* Make invisible by default */
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  }
+
+  /* Modal content */
+.modal-content {
+    background-color: transparent;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    width: 50%; /* Could be more or less, depending on screen size */
+    animation-name: modalopen;
+    animation-duration: 1s;
+    color: #a1a3a3;
+    text-align: left;
+    font-size: 25px;
+    z-index: 1001;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-style: italic;
+    font-weight: 250;
+  }
+.modal-open .popup, .modal-open .icon, .modal-open #drop-zone {
+    filter: blur(10px); /* Apply a blur effect */
+  }
+
+.modal-open #modal-backdrop {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
+
+.modal-open{
+    overflow: hidden;
+  }
+  
+#exhibition-description-modal {
+    backdrop-filter: none; /* No blur effect */
+    transition: opacity 1s ease;
+    /* Rest of your styles for the modal */
+  }
+  /* Close button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: lighter;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .popup{
+    transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+  }
+
+#Intro {
+    width: 238.5px;
+    height: 51.75px;
+  }
+
+ 
+@keyframes modalopen {
+  from {
+    top: -300px;
+    opacity: 0;
+  } 
+  to {
+    top: 15%;
+    opacity: 1;
+  }
+}
+
+@media print {
+    body * {
+      visibility: hidden; /* Hide everything in the body when printing */
+    }
+  
+    #drop-zone, #drop-zone * {
+      visibility: visible; /* Only the drop zone content will be visible */
+    }
+  
+    #drop-zone {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+
